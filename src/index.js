@@ -1,7 +1,7 @@
 /*
  * @Author: dengqiang
  * @Date: 2021-06-07 11:20:38
- * @LastEditTime: 2021-06-07 12:19:10
+ * @LastEditTime: 2021-06-07 12:21:28
  * @LastEditors: dengqiang
  * @Description: index
  */
@@ -19,7 +19,7 @@ const onRoomInvite = require('./handlers/on-room-invite');
 const onError = require('./handlers/on-error');
 
 const bot = new Wechaty({
-  name: 'aichitang-bot',
+  name: 'wx-bot',
   puppet: 'wechaty-puppet-wechat'
 });
 
