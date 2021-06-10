@@ -1,10 +1,11 @@
 /*
  * @Author: dengqiang
  * @Date: 2021-06-07 11:36:35
- * @LastEditTime: 2021-06-07 12:14:24
+ * @LastEditTime: 2021-06-08 23:58:34
  * @LastEditors: dengqiang
  * @Description: on-friend
  */
+const { Friendship } = require('wechaty');
 
 async function onFriendship(friendship) {
   if (friendship.type() === Friendship.Type.Receive) {
