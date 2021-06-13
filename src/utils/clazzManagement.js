@@ -1,7 +1,7 @@
 /*
  * @Author: dengqiang
  * @Date: 2021-06-13 16:25:42
- * @LastEditTime: 2021-06-14 00:35:15
+ * @LastEditTime: 2021-06-14 00:49:31
  * @LastEditors: dengqiang
  * @Description: clazz
  */
@@ -107,7 +107,7 @@ const clazzList = async () => {
 // 班级详细信息
 const clazzListAll = async () => {
   const dbData = await db.read();
-  dbData.clazz
+  return dbData.clazz
     .map((item) => {
       const player = item.player.join('\n');
       return `【 ${item.name} 】 班长: ${item.leader} \n ${player}`;

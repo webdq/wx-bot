@@ -1,7 +1,7 @@
 /*
  * @Author: dengqiang
  * @Date: 2021-06-13 09:15:52
- * @LastEditTime: 2021-06-13 23:49:48
+ * @LastEditTime: 2021-06-14 00:52:21
  * @LastEditors: dengqiang
  * @Description: bot config
  */
@@ -125,6 +125,13 @@ exports.BOT_MESSAGE = [
     lv: 1,
     mentionList: ['香蕉不香']
   },
+  {
+    test: /^我通过了你的朋友验证请求/,
+    reply: `你好鸭`,
+    replyType: 'text',
+    lv: 1
+  },
+  // 班级管理
   {
     test: /^所有班级$/,
     reply: ``,
