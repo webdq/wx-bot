@@ -1,11 +1,11 @@
 /*
  * @Author: dengqiang
  * @Date: 2021-06-13 16:25:42
- * @LastEditTime: 2021-06-13 17:56:14
+ * @LastEditTime: 2021-06-14 00:35:15
  * @LastEditors: dengqiang
  * @Description: clazz
  */
-const { mentionText } = require('./mentionText');
+// const { mentionText } = require('./mentionText');
 const db = require('../../db');
 const {
   NOT_PERMISSION_MESSAGE,
@@ -14,8 +14,8 @@ const {
 
 const clazzManagement = async ({ text, match, talker, room }) => {
   const isPermission = (match.permission || []).includes(talker.name());
-  let content = mentionText(text);
-  let [action = '', clazzName = '', playerName = ''] = content
+  // let content = mentionText(text);
+  let [action = '', clazzName = '', playerName = ''] = text
     .replace(/\,|\，/g, ',')
     .split(',');
   let result = '';

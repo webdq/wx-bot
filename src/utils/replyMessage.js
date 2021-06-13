@@ -1,7 +1,7 @@
 /*
  * @Author: dengqiang
  * @Date: 2021-06-13 16:32:35
- * @LastEditTime: 2021-06-13 23:31:57
+ * @LastEditTime: 2021-06-14 00:28:31
  * @LastEditors: dengqiang
  * @Description: replyMessage
  */
@@ -81,7 +81,6 @@ const replyMessage = async ({ text, talker, room, bot }) => {
         mentionList = checkedMentionList;
         break;
       }
-      console.log(i);
     }
     reply = reply || NOTFOUND_MATCH_MESSAGE;
   }
