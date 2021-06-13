@@ -1,12 +1,13 @@
 /*
  * @Author: dengqiang
  * @Date: 2021-06-07 11:34:51
- * @LastEditTime: 2021-06-13 17:22:40
+ * @LastEditTime: 2021-06-13 23:42:14
  * @LastEditors: dengqiang
  * @Description: on-message
  */
 const { replyMessage } = require('../utils/replyMessage');
 const { mentionSelf } = require('../utils/mentionSelf');
+const { mentionText } = require('../utils/mentionText');
 
 async function onMessage(msg) {
   const self = msg.self();
@@ -16,13 +17,14 @@ async function onMessage(msg) {
 
   const text = msg.text();
   const isMentionSelf = mentionSelf(text);
+  const mentionSelfText = mentionText(text);
   // const mentionSelf = await msg.mentionSelf();
   // if (self || talker === to || (room && !mentionSelf)) return false;
   // let text = mentionSelf ? await msg.mentionText() : msg.text();
   if (self || talker === to || (room && !isMentionSelf)) return false;
 
   const { reply, mentionList } = await replyMessage({
-    text,
+    text: isMentionSelf ? mentionSelfText : text,
     talker,
     room,
     bot: this
