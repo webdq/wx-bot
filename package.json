@@ -11,9 +11,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "file-box": "^0.16.8",
     "prettier": "^2.3.1",
     "qrcode-terminal": "^0.12.0",
-    "wechaty": "^0.60.12",
+    "wechaty": "^0.62.3",
     "wechaty-puppet-wechat": "^0.28.1"
   }
 }

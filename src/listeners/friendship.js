@@ -1,7 +1,7 @@
 /*
  * @Author: dengqiang
  * @Date: 2021-06-07 11:36:35
- * @LastEditTime: 2021-06-08 23:58:34
+ * @LastEditTime: 2021-06-10 20:32:42
  * @LastEditors: dengqiang
  * @Description: on-friend
  */
@@ -13,6 +13,7 @@ async function onFriendship(friendship) {
     const contact = friendship.contact();
     let result = await friendship.accept();
     if (result) {
+      await contact.say(`你好鸭，我是糖果丶BOT`);
       console.log(`Request from ${contact.name()} is accept successfully!`);
     } else {
       console.log(`Request from ${contact.name()} failed to accept!`);
