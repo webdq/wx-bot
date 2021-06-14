@@ -1,7 +1,7 @@
 /*
  * @Author: dengqiang
  * @Date: 2021-06-13 09:15:52
- * @LastEditTime: 2021-06-14 00:52:21
+ * @LastEditTime: 2021-06-14 10:23:30
  * @LastEditors: dengqiang
  * @Description: bot config
  */
@@ -61,15 +61,13 @@ exports.BOT_MESSAGE = [
     test: /^帮助$/i,
     reply: exports.HELP_MESSAGE,
     replyType: 'text',
-    lv: 1,
-    disableMentionTalker: true
+    lv: 1
   },
   {
     test: /^班级帮助$/i,
     reply: exports.CLAZZ_HELP_MESSAGE,
     replyType: 'text',
-    lv: 1,
-    disableMentionTalker: true
+    lv: 1
   },
   {
     test: /(你好(鸭|呀|吖|丫)?)|(好)|(hi)|(hello)/i,
@@ -78,7 +76,7 @@ exports.BOT_MESSAGE = [
     lv: 1
   },
   {
-    test: /((你的名字)|(你是(谁|哪个|哪位|那个|那位)?)|((你叫什么)?名字)|(你叫啥))(\?)?/i,
+    test: /((你的名字)|(你是(谁|哪个|哪位|那个|那位|啥|什么)?)|((你叫什么)?名字)|(你叫啥))(\?)?/i,
     reply: `我叫${exports.BOT_NAME}`,
     replyType: 'text',
     lv: 1
@@ -87,29 +85,19 @@ exports.BOT_MESSAGE = [
     test: /^公告$/,
     reply: `@所有人 \n ${exports.NOTICE_MESSAGE}`,
     replyType: 'text',
-    lv: 1,
-    disableMentionTalker: true
+    lv: 1
   },
   {
     test: /^防骗$/,
     reply: exports.FRAUD_PREVENTION_MESSAGE,
     replyType: 'text',
-    lv: 1,
-    disableMentionTalker: true
+    lv: 1
   },
   {
     test: /^欢迎$/,
     reply: `${exports.ROOM_JOIN_MESSAGE} \n ${exports.FRAUD_PREVENTION_MESSAGE} \n ================ \n ${exports.NOTICE_MESSAGE}`,
     replyType: 'text',
-    lv: 1,
-    disableMentionTalker: true
-  },
-  {
-    test: /^艾特$/,
-    reply: `你好鸭`,
-    replyType: 'text',
-    lv: 1,
-    mentionList: ['辣手摧花。。。']
+    lv: 1
   },
   {
     test: /^艾特军哥$/,
@@ -119,7 +107,7 @@ exports.BOT_MESSAGE = [
     mentionList: ['肖**']
   },
   {
-    test: /^艾特老大$/,
+    test: /^艾特(老大|猫猫|小猫猫|小猫猫爱吃糖|小白兔爱吃糖)$/,
     reply: `(((((((((((っ•ω•)っ Σ(σ｀•ω•´)σ 起飞！ \n 大长腿正在路上，5秒钟到达战场`,
     replyType: 'text',
     lv: 1,
@@ -223,13 +211,13 @@ exports.BOT_MESSAGE = [
     lv: 1
   },
   {
-    test: /^太子商务$/,
+    test: /^(太子商务|太子)$/,
     reply: `https://qqfo.webdqd.com/public/businessman/%E5%A4%AA%E5%AD%90%E5%95%86%E5%8A%A1.jpg`,
     replyType: 'file',
     lv: 1
   },
   {
-    test: /^张家港的小白$/,
+    test: /^(张家港的小白|小白)$/,
     reply: `https://qqfo.webdqd.com/public/businessman/%E5%BC%A0%E5%AE%B6%E6%B8%AF%E7%9A%84%E5%B0%8F%E7%99%BD.jpg`,
     replyType: 'file',
     lv: 1

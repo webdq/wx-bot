@@ -1,7 +1,7 @@
 /*
  * @Author: dengqiang
  * @Date: 2021-06-13 16:31:06
- * @LastEditTime: 2021-06-13 16:31:34
+ * @LastEditTime: 2021-06-14 10:03:07
  * @LastEditors: dengqiang
  * @Description: replyMentionList
  */
@@ -18,7 +18,7 @@ const replyMentionList = async ({ match, room, talker }) => {
     const contactList = (await Promise.all(memberList))
       .filter(Boolean)
       .filter((item) => item.name() !== talker.name());
-    if (!match.disableMentionTalker) contactList.push(talker);
+    if (match.enableMentionTalker) contactList.push(talker);
     mention = contactList;
   }
   return mention;

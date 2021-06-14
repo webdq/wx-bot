@@ -1,7 +1,7 @@
 /*
  * @Author: dengqiang
  * @Date: 2021-06-13 16:32:35
- * @LastEditTime: 2021-06-14 00:28:31
+ * @LastEditTime: 2021-06-14 10:19:34
  * @LastEditors: dengqiang
  * @Description: replyMessage
  */
@@ -16,14 +16,14 @@ const {
 } = require('../../config/bot');
 
 const checkMessage = async ({ text, match, talker, room, bot }) => {
-  let checkedReply = null;
-  let checkedMentionList = [];
+  let reply = null;
+  let mentionList = null;
   if (match.test.test(text)) {
     switch (match.replyType) {
       case 'text':
-        checkedReply = match.reply;
+        reply = match.reply;
         if (room) {
-          checkedMentionList = await replyMentionList({
+          mentionList = await replyMentionList({
             match,
             room,
             talker
@@ -31,7 +31,7 @@ const checkMessage = async ({ text, match, talker, room, bot }) => {
         }
         break;
       case 'file':
-        checkedReply = FileBox.fromUrl(match.reply);
+        reply = FileBox.fromUrl(match.reply);
         break;
       // case 'urllink':
       // reply = new UrlLink({
@@ -49,46 +49,38 @@ const checkMessage = async ({ text, match, talker, room, bot }) => {
       //   }
       //   break;
       case 'clazz-management':
-        checkedReply = await clazzManagement({ text, match, talker, room });
+        reply = await clazzManagement({ text, match, talker, room });
         break;
     }
   }
-  return { checkedReply, checkedMentionList };
+  return { reply, mentionList };
 };
 
 const replyMessage = async ({ text, talker, room, bot }) => {
-  const len = BOT_MESSAGE.length;
-  let reply = '';
-  let mentionList = [];
-
   if (text === '') {
-    reply = EMPTY_MESSAGE;
+    let mentionList = null;
     if (room) {
       mentionList = await replyMentionList({ match: {}, room, talker });
     }
+    return { reply: EMPTY_MESSAGE, mentionList };
   } else {
+    const len = BOT_MESSAGE.length;
     for (let i = 0; i < len; i++) {
       let match = BOT_MESSAGE[i];
-      const { checkedReply, checkedMentionList } = await checkMessage({
+      const { reply, mentionList } = await checkMessage({
         text,
         match,
         talker,
         room,
         bot
       });
-      if (checkedReply) {
-        reply = checkedReply;
-        mentionList = checkedMentionList;
-        break;
+      if (reply) {
+        return { reply, mentionList };
       }
     }
-    reply = reply || NOTFOUND_MATCH_MESSAGE;
   }
 
-  return {
-    reply,
-    mentionList
-  };
+  return { reply: NOTFOUND_MATCH_MESSAGE, mentionList: null };
 };
 
 exports.replyMessage = replyMessage;
