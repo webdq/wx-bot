@@ -1,7 +1,7 @@
 /*
  * @Author: dengqiang
  * @Date: 2021-06-13 09:15:52
- * @LastEditTime: 2021-06-14 10:23:30
+ * @LastEditTime: 2021-06-15 00:39:05
  * @LastEditors: dengqiang
  * @Description: bot config
  */
@@ -38,6 +38,8 @@ exports.HELP_MESSAGE = `================ \n ★★★ 帮助 ★★★ \n ======
 关键字：我在几班 
 说明：查询所在班级 
 -------------------------------- 
+【游戏相关】 糖果谜语、糖果猜谜语
+-------------------------------- 
 【商人相关】 贝贝、李彬、明后、靓号之王、鸣哥、太子商务、张家港的小白、真能扯沃德天、至若初见、子哥`;
 exports.CLAZZ_HELP_MESSAGE = `================ \n ★★★ 班级帮助 ★★★ \n ================
 ★ 以下关键字之间必须用逗号并且需要权限 ★ 
@@ -56,6 +58,10 @@ exports.CLAZZ_HELP_MESSAGE = `================ \n ★★★ 班级帮助 ★★�
 ---------------- 
 关键字：设置班长，班级名，玩家名 
 说明：把一个玩家设置成班长，如果没有玩家名该班级会去掉班长`;
+exports.REQUEST_ERROR_MESSAGE = `!!!∑(ﾟДﾟノ)ノ 请求错误了，请联系管理员`;
+exports.REQUEST_FAILED_MESSAGE = `!!!∑(ﾟДﾟノ)ノ 请求失败了，请联系管理员`;
+exports.GAME_TIME_DOWN = 60; // 60S
+exports.REQUEST_MAX_COUNT_MESSAGE = `…(﹂_﹂)… 我太累了，明天再找我玩吧`;
 exports.BOT_MESSAGE = [
   {
     test: /^帮助$/i,
@@ -239,5 +245,15 @@ exports.BOT_MESSAGE = [
     reply: `https://qqfo.webdqd.com/public/businessman/%E5%AD%90%E5%93%A5.jpg`,
     replyType: 'file',
     lv: 1
+  }
+];
+exports.BOT_GAME_MESSAGE = [
+  {
+    test: /^糖果(猜谜|谜语|猜谜语)$/,
+    reply: `猜谜语游戏开始`,
+    replyType: 'text',
+    lv: 1,
+    isGame: true,
+    gameType: 'riddle'
   }
 ];

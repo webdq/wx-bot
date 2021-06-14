@@ -1,13 +1,31 @@
 /*
  * @Author: dengqiang
  * @Date: 2021-06-07 11:34:51
- * @LastEditTime: 2021-06-13 23:42:14
+ * @LastEditTime: 2021-06-15 01:07:01
  * @LastEditors: dengqiang
  * @Description: on-message
  */
-const { replyMessage } = require('../utils/replyMessage');
+const { replyMessage, checkGame } = require('../utils/replyMessage');
+const { replyRobotMessage } = require('../utils/replyRobotMessage');
+const {
+  replyGameMessage,
+  checkAnswer,
+  clearGame
+} = require('../utils/replyGameMessage');
 const { mentionSelf } = require('../utils/mentionSelf');
 const { mentionText } = require('../utils/mentionText');
+
+const sendMessage = async ({ room, reply, mentionList }) => {
+  if (room) {
+    if (mentionList && mentionList.length) {
+      await room.say(reply, ...mentionList);
+    } else {
+      await room.say(reply);
+    }
+  } else {
+    await msg.say(reply);
+  }
+};
 
 async function onMessage(msg) {
   const self = msg.self();
@@ -18,26 +36,78 @@ async function onMessage(msg) {
   const text = msg.text();
   const isMentionSelf = mentionSelf(text);
   const mentionSelfText = mentionText(text);
+  const content = isMentionSelf ? mentionSelfText : text;
   // const mentionSelf = await msg.mentionSelf();
   // if (self || talker === to || (room && !mentionSelf)) return false;
   // let text = mentionSelf ? await msg.mentionText() : msg.text();
-  if (self || talker === to || (room && !isMentionSelf)) return false;
+  if (self || talker === to) return false;
 
-  const { reply, mentionList } = await replyMessage({
-    text: isMentionSelf ? mentionSelfText : text,
-    talker,
-    room,
-    bot: this
-  });
+  let gameMessage = checkGame({ text: content });
 
-  if (room) {
-    if (mentionList && mentionList.length) {
-      await room.say(reply, ...mentionList);
-    } else {
-      await room.say(reply);
+  if (global.isGameOpen && global.isGameOngoing) {
+    const answerRight = checkAnswer(content);
+    if (answerRight) {
+      clearGame();
+      await sendMessage({
+        room,
+        reply: `(σﾟ∀ﾟ)σ..:*☆ 恭喜你答对了`,
+        mentionList: [talker]
+      });
     }
+  } else if (gameMessage) {
+    if (global.isGameOpen) return false;
+    // 开启游戏
+    global.isGameOpen = true;
+    const apiMessage = await replyGameMessage({
+      gameType: gameMessage.match.gameType,
+      sendMessage,
+      text: content,
+      talker,
+      room,
+      bot: this
+    });
+    await sendMessage({
+      room,
+      reply: gameMessage.reply,
+      mentionList: gameMessage.mentionList
+    });
+    await sendMessage({
+      room,
+      reply: apiMessage.reply,
+      mentionList: apiMessage.mentionList
+    });
   } else {
-    await msg.say(reply);
+    if (room && !isMentionSelf) return false;
+
+    // 匹配回复
+    const matchMessage = await replyMessage({
+      text: content,
+      talker,
+      room,
+      bot: this
+    });
+
+    if (matchMessage.matched) {
+      await sendMessage({
+        room,
+        reply: matchMessage.reply,
+        mentionList: matchMessage.mentionList
+      });
+    } else {
+      // 接口回复
+      const apiMessage = await replyRobotMessage({
+        gameType: 'robot',
+        text: content,
+        talker,
+        room,
+        bot: this
+      });
+      await sendMessage({
+        room,
+        reply: apiMessage.reply,
+        mentionList: apiMessage.mentionList
+      });
+    }
   }
   console.log(`message ${msg} received`);
 }

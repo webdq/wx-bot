@@ -1,7 +1,7 @@
 /*
  * @Author: dengqiang
  * @Date: 2021-06-13 16:32:35
- * @LastEditTime: 2021-06-14 10:19:34
+ * @LastEditTime: 2021-06-15 00:17:58
  * @LastEditors: dengqiang
  * @Description: replyMessage
  */
@@ -11,6 +11,7 @@ const { replyMentionList } = require('./replyMentionList');
 const { clazzManagement } = require('./clazzManagement');
 const {
   BOT_MESSAGE,
+  BOT_GAME_MESSAGE,
   NOTFOUND_MATCH_MESSAGE,
   EMPTY_MESSAGE
 } = require('../../config/bot');
@@ -56,13 +57,23 @@ const checkMessage = async ({ text, match, talker, room, bot }) => {
   return { reply, mentionList };
 };
 
+const checkGame = ({ text }) => {
+  const len = BOT_GAME_MESSAGE.length;
+  for (let i = 0; i < len; i++) {
+    let match = BOT_GAME_MESSAGE[i];
+    if (match.test.test(text)) {
+      return { reply: match.reply, mentionList: null, matched: true, match };
+    }
+  }
+};
+
 const replyMessage = async ({ text, talker, room, bot }) => {
   if (text === '') {
     let mentionList = null;
     if (room) {
       mentionList = await replyMentionList({ match: {}, room, talker });
     }
-    return { reply: EMPTY_MESSAGE, mentionList };
+    return { reply: EMPTY_MESSAGE, mentionList, matched: true };
   } else {
     const len = BOT_MESSAGE.length;
     for (let i = 0; i < len; i++) {
@@ -75,12 +86,13 @@ const replyMessage = async ({ text, talker, room, bot }) => {
         bot
       });
       if (reply) {
-        return { reply, mentionList };
+        return { reply, mentionList, matched: true };
       }
     }
   }
 
-  return { reply: NOTFOUND_MATCH_MESSAGE, mentionList: null };
+  return { reply: NOTFOUND_MATCH_MESSAGE, mentionList: null, matched: false };
 };
 
 exports.replyMessage = replyMessage;
+exports.checkGame = checkGame;
