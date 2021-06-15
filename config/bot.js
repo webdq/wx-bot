@@ -1,7 +1,7 @@
 /*
  * @Author: dengqiang
  * @Date: 2021-06-13 09:15:52
- * @LastEditTime: 2021-06-15 00:39:05
+ * @LastEditTime: 2021-06-16 00:29:57
  * @LastEditors: dengqiang
  * @Description: bot config
  */
@@ -64,7 +64,7 @@ exports.GAME_TIME_DOWN = 60; // 60S
 exports.REQUEST_MAX_COUNT_MESSAGE = `…(﹂_﹂)… 我太累了，明天再找我玩吧`;
 exports.BOT_MESSAGE = [
   {
-    test: /^帮助$/i,
+    test: /^(帮助|查询|功能)$/i,
     reply: exports.HELP_MESSAGE,
     replyType: 'text',
     lv: 1
@@ -184,6 +184,37 @@ exports.BOT_MESSAGE = [
     replyType: 'clazz-management',
     lv: 1,
     permission: ['香蕉不香', '辣手摧花。。。', '不帅不温柔']
+  },
+  // 技能书
+  {
+    test: /^(SS|术士|法师)(书|刷书|技能|技能点|技能书)$/i,
+    reply: `https://qqfo.webdqd.com/public/book/book-ss.jpg`,
+    replyType: 'file',
+    lv: 1
+  },
+  {
+    test: /^(ZS|战士)(书|刷书|技能|技能点|技能书)$/i,
+    reply: `https://qqfo.webdqd.com/public/book/book-zs.jpg`,
+    replyType: 'file',
+    lv: 1
+  },
+  {
+    test: /^(JK|剑客)(书|刷书|技能|技能点|技能书)$/i,
+    reply: `https://qqfo.webdqd.com/public/book/book-jk.jpg`,
+    replyType: 'file',
+    lv: 1
+  },
+  {
+    test: /^(CK|刺客)(书|刷书|技能|技能点|技能书)$/i,
+    reply: `https://qqfo.webdqd.com/public/book/book-ck.jpg`,
+    replyType: 'file',
+    lv: 1
+  },
+  {
+    test: /^(YS|药师)(书|刷书|技能|技能点|技能书)$/i,
+    reply: `https://qqfo.webdqd.com/public/book/book-ys.jpg`,
+    replyType: 'file',
+    lv: 1
   },
   // 商人
   {

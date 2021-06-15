@@ -1,7 +1,7 @@
 /*
  * @Author: dengqiang
  * @Date: 2021-06-14 20:52:57
- * @LastEditTime: 2021-06-15 01:05:01
+ * @LastEditTime: 2021-06-16 00:41:02
  * @LastEditors: dengqiang
  * @Description: replyGameMessage
  */
@@ -78,7 +78,8 @@ const replyGameMessage = async ({
           quest,
           answer
         };
-        reply = `${quest} \n 倒计时${GAME_TIME_DOWN}秒...`;
+        const answerTem = answer[0] + ''.padStart(answer.length - 1, '*');
+        reply = `${quest} \n 提示:( ${answerTem} )，倒计时${GAME_TIME_DOWN}秒...`;
 
         dbData.tianapi[gameType].requestDate = requestDate;
         dbData.tianapi[gameType].requestCount += 1;
