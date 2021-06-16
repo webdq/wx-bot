@@ -1,11 +1,11 @@
 /*
  * @Author: dengqiang
  * @Date: 2021-06-14 20:52:57
- * @LastEditTime: 2021-06-16 00:41:02
+ * @LastEditTime: 2021-06-16 20:49:09
  * @LastEditors: dengqiang
  * @Description: replyGameMessage
  */
-const request = require('../../api/index');
+const request = require('../../api/tianapi');
 const { responseCode } = require('../../config/tianapi');
 const {
   REQUEST_MAX_COUNT_MESSAGE,

@@ -1,16 +1,15 @@
 /*
  * @Author: dengqiang
  * @Date: 2021-06-14 11:01:01
- * @LastEditTime: 2021-06-14 23:55:20
+ * @LastEditTime: 2021-06-16 20:41:05
  * @LastEditors: dengqiang
  * @Description: request
  */
 const axios = require('axios');
-const { baseURL, timeout, APIKEY } = require('../config/tianapi');
-
 class Request {
-  constructor() {
+  constructor(config = {}) {
     this.instance = null;
+    this.config = { ...config };
     this.defaultOptions = {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -20,8 +19,9 @@ class Request {
   }
   createInstance() {
     this.instance = axios.create({
-      baseURL,
-      timeout
+      baseURL: '/',
+      timeout: 1000 * 60,
+      ...this.config
     });
     // 添加请求拦截器
     this.instance.interceptors.request.use(
@@ -43,20 +43,13 @@ class Request {
       }
     );
   }
-  formatOptions(options) {
-    let method = options.method || 'GET';
-    let params = options.params || {};
-    let data = options.data || {};
-    if (/(GET)|(DELETE)/i.test(method)) {
-      params = { ...params, key: APIKEY };
-    }
-    if (/(POST)|(PUT)/i.test(method)) {
-      data = { ...data, key: APIKEY };
-    }
-    return { ...this.defaultOptions, ...options, params, data };
+  requestUse(onFulfilled = null, onRejected = null) {
+    this.instance.interceptors.request.use(onFulfilled, onRejected);
+  }
+  responseUse(onFulfilled = null, onRejected = null) {
+    this.instance.interceptors.response.use(onFulfilled, onRejected);
   }
   request(options = {}) {
-    options = this.formatOptions(options);
     return this.instance.request(options);
   }
   get(url, params = {}, options = {}) {
@@ -73,4 +66,8 @@ class Request {
   }
 }
 
-module.exports = new Request();
+const request = (config) => {
+  return new Request(config);
+};
+
+module.exports = request;
