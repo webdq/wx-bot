@@ -1,7 +1,7 @@
 /*
  * @Author: dengqiang
  * @Date: 2021-06-07 11:34:51
- * @LastEditTime: 2021-06-15 01:07:01
+ * @LastEditTime: 2021-06-17 20:32:01
  * @LastEditors: dengqiang
  * @Description: on-message
  */
@@ -15,7 +15,7 @@ const {
 const { mentionSelf } = require('../utils/mentionSelf');
 const { mentionText } = require('../utils/mentionText');
 
-const sendMessage = async ({ room, reply, mentionList }) => {
+const sendMessage = async ({ msg, room, reply, mentionList }) => {
   if (room) {
     if (mentionList && mentionList.length) {
       await room.say(reply, ...mentionList);
@@ -49,6 +49,7 @@ async function onMessage(msg) {
     if (answerRight) {
       clearGame();
       await sendMessage({
+        msg,
         room,
         reply: `(σﾟ∀ﾟ)σ..:*☆ 恭喜你答对了`,
         mentionList: [talker]
@@ -67,11 +68,13 @@ async function onMessage(msg) {
       bot: this
     });
     await sendMessage({
+      msg,
       room,
       reply: gameMessage.reply,
       mentionList: gameMessage.mentionList
     });
     await sendMessage({
+      msg,
       room,
       reply: apiMessage.reply,
       mentionList: apiMessage.mentionList
@@ -89,6 +92,7 @@ async function onMessage(msg) {
 
     if (matchMessage.matched) {
       await sendMessage({
+        msg,
         room,
         reply: matchMessage.reply,
         mentionList: matchMessage.mentionList
@@ -103,6 +107,7 @@ async function onMessage(msg) {
         bot: this
       });
       await sendMessage({
+        msg,
         room,
         reply: apiMessage.reply,
         mentionList: apiMessage.mentionList
