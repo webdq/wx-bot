@@ -1,7 +1,7 @@
 /*
  * @Author: dengqiang
  * @Date: 2021-06-13 16:32:35
- * @LastEditTime: 2021-06-19 00:13:14
+ * @LastEditTime: 2021-06-19 00:25:27
  * @LastEditors: dengqiang
  * @Description: replyMessage
  */
@@ -58,7 +58,7 @@ const checkMessage = async ({ text, match, talker, room, bot }) => {
                 return Decimal.add(prev, cur);
               }, new Decimal(0));
               const lv = chinaUnitNum(lvDecimal.toNumber());
-              reply = `${start}-${end}级 经验约等于：${lv}`;
+              reply = `${s}-${e}级 经验约等于：${lv}`;
             }
           } catch (err) {
             reply = `(；′⌒”) 太难了，2年级都算不出来`;
