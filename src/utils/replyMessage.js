@@ -1,7 +1,7 @@
 /*
  * @Author: dengqiang
  * @Date: 2021-06-13 16:32:35
- * @LastEditTime: 2021-06-19 00:01:10
+ * @LastEditTime: 2021-06-19 00:13:14
  * @LastEditors: dengqiang
  * @Description: replyMessage
  */
@@ -32,7 +32,7 @@ const checkMessage = async ({ text, match, talker, room, bot }) => {
       case 'text':
         if (match.callType === '经验') {
           try {
-            const val = text.replace(/,，/g, ',');
+            const val = text.replace(/[,，]/g, ',');
             let [, start, end] = val.split(',');
             let s = LEVEL_MIN,
               e = LEVEL_MAX;

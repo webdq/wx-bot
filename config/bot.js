@@ -1,7 +1,7 @@
 /*
  * @Author: dengqiang
  * @Date: 2021-06-13 09:15:52
- * @LastEditTime: 2021-06-19 00:04:34
+ * @LastEditTime: 2021-06-19 00:13:37
  * @LastEditors: dengqiang
  * @Description: bot config
  */
@@ -63,7 +63,7 @@ exports.GAME_TIME_DOWN = 60; // 60S
 exports.REQUEST_MAX_COUNT_MESSAGE = `…(﹂_﹂)… 我太累了，明天再找我玩吧`;
 exports.UPDATE_MESSAGE = `更新计算经验值和升级地点，试试我说新指令：
 指令：经验，1，150  说明：使用逗号分隔等级范围
-指令：升级`;
+指令：升级  说明：推荐升级地点`;
 exports.BOT_MESSAGE = [
   {
     test: /^更新$/i,
